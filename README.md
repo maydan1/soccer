@@ -15,5 +15,5 @@ To Visit App:
 
 ## Live Application
 Can be accessed at:
-https://morning-temple-93579.herokuapp.com/
+https://mysoccerteams.herokuapp.com/
 
