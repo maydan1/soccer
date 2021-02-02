@@ -5,7 +5,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
-
+const FAVORITES = "favorites";
 class SoccerTeamsTable extends Component {
 
    constructor(props) {
@@ -21,7 +21,7 @@ class SoccerTeamsTable extends Component {
 
    async componentDidMount() {
       const fetchedData = await fetchData();
-      const savedFavorites = localStorage.getItem("favorites");
+      const savedFavorites = localStorage.getItem(FAVORITES);
 
       this.setState({
          teams: fetchedData,
@@ -31,7 +31,7 @@ class SoccerTeamsTable extends Component {
    }
 
    componentDidUpdate() {
-      localStorage.setItem('favorites', JSON.stringify(this.state.favorites));
+      localStorage.setItem(FAVORITES, JSON.stringify(this.state.favorites));
    }
 
    toggleFavorite = (id) => {
@@ -40,17 +40,17 @@ class SoccerTeamsTable extends Component {
 
       currTeamIndex === -1 ? currentFavorites.push(id) : currentFavorites.splice(currTeamIndex, 1);
 
-      localStorage.setItem("favorites", JSON.stringify(currentFavorites));
+      localStorage.setItem(FAVORITES, JSON.stringify(currentFavorites));
 
       this.setState({ favorites: currentFavorites })
    }
 
    isFavorite = (id) => {
-      let index = -1;
+
       if (this.state.favorites.length) {
-         index = this.state.favorites.indexOf(id.toString());
+         return this.state.favorites.includes(id.toString());
       }
-      return index === -1 ? false : true;
+      return false;
    }
 
 
@@ -68,7 +68,7 @@ class SoccerTeamsTable extends Component {
                   <Checkbox icon={<FavoriteBorder />}
                      checkedIcon={<Favorite />} name="checkedH"
                      checked={this.isFavorite(id)}
-                     onChange={() => this.toggleFavorite(id.toString())} size="large" key={id} />
+                     onChange={() => this.toggleFavorite(id.toString())} key={id} />
                </td>
             </tr>
          )
@@ -100,7 +100,7 @@ class SoccerTeamsTable extends Component {
       }
       else {
          return (
-            <h2 >Loading...</h2>)
+            <h2>Loading...</h2>)
       }
    }
 
