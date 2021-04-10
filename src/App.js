@@ -1,11 +1,12 @@
-import Table from './components/SoccerTeamsTable'
+import SoccerTeamsTable from './components/SoccerTeamsTable'
 import './App.css';
 
 
 function App() {
   return ( 
     <div>
-      <Table />
+        <h1>My Soccer Teams</h1>
+      <SoccerTeamsTable />
     </div>
   );
 }
